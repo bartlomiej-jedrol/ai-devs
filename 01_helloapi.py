@@ -1,8 +1,8 @@
-from handle_task import authorize, get_input_data, send_answer
+from handle_task import get_token, get_task, send_answer
 
 task_name = "helloapi"
-
-token = authorize(task_name=task_name)
-answer = get_input_data(token=token)
-response = send_answer(answer=answer)
-print(response.json())
+token = get_token(task_name=task_name)
+task = get_task(token=token)
+# The task is to to POST value of "cookie"
+answer = task["cookie"]
+send_answer(token=token, answer=answer)
