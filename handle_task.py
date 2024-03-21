@@ -1,3 +1,4 @@
+# pylint: disable=all
 import os
 import requests
 import logging
@@ -15,10 +16,10 @@ def get_token(task_name):
     try:
         r = requests.post(url=url, json=payload)
         logger.info(f"Successfully authorized the task: {task_name}.")
-        print(f"Successfully authorized the task: {task_name}.")
+        print(f"Successfully authorized the task: {task_name}.\n")
     except Exception as e:
         print(e)
-        print(f"Error at the time of authorization of the task: {task_name}.")
+        print(f"Error at the time of authorization of the task: {task_name}.\n")
         raise e
 
     return r.json()["token"]
@@ -29,11 +30,11 @@ def get_task(token):
     url = f"https://tasks.aidevs.pl/task/{token}"
     try:
         r = requests.get(url=url)
-        logger.info(f"Successfully obtained the task: {r.json()}.")
-        print(f"Successfully obtained the task: {r.json()}.")
+        logger.info(f"Successfully obtained the task: {r.json()}.\n")
+        print(f"Successfully obtained the task: {r.json()}.\n")
     except Exception as e:
         print(e)
-        print("Error at the time of getting input data.")
+        print("Error at the time of getting input data.\n")
 
     return r.json()
 
@@ -44,9 +45,13 @@ def send_answer(token, answer):
     payload = {"answer": answer}
     try:
         r = requests.post(url=answer_url, json=payload)
-        logger.info(f"Successfully sent the answer: {answer}.")
-        print(f"Successfully sent the answer: {answer}.")
+        logger.info(f"Successfully sent the answer: {payload}.\n")
+        print(f"Successfully sent the answer: {payload}.\n")
     except Exception as e:
         print(e)
-        print("Error at the time of sending answer.")
-    print(f"Response from the answer endpoint: {r}.")
+        print("Error at the time of sending answer.\n")
+    print(f"Response from the answer endpoint: {r}.\n")
+    # print(f"Response from the answer endpoint: {r.status_code}.\n")
+    # print(f"Response from the answer endpoint: {r.headers}.\n")
+    # print(f"Response from the answer endpoint: {r.ok}.\n")
+    # print(f"Response from the answer endpoint: {r.text}.\n")
