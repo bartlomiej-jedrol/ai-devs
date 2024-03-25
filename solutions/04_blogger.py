@@ -1,4 +1,4 @@
-from handle_task import get_token, get_task, send_answer
+from lib.handle_task import get_token, get_task, send_answer
 from openai_models import models
 from openai import OpenAI
 import logging
@@ -39,6 +39,7 @@ try:
     response = client.chat.completions.create(
         model=model, messages=messages, temperature=0
     ).model_dump()
+    logger.info(f"Successfully called the Completions API: {response}.\n")
 except Exception as e:
     print(e)
 

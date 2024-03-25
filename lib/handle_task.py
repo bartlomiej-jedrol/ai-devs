@@ -30,8 +30,9 @@ def get_task(token):
     url = f"https://tasks.aidevs.pl/task/{token}"
     try:
         r = requests.get(url=url)
-        logger.info(f"Successfully obtained the task: {r.json()}.\n")
-        print(f"Successfully obtained the task: {r.json()}.\n")
+        task = r.json()["msg"]
+        logger.info(f"Successfully obtained the task: {task}.\n")
+        print(f"Successfully obtained the task: {task}.\n")
     except Exception as e:
         print(e)
         print("Error at the time of getting input data.\n")

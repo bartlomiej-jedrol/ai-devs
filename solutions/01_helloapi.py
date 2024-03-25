@@ -1,4 +1,4 @@
-from handle_task import get_token, get_task, send_answer
+from lib.handle_task import get_token, get_task, send_answer
 
 task_name = "helloapi"
 token = get_token(task_name=task_name)
