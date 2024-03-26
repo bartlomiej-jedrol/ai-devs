@@ -1,4 +1,5 @@
 __pycache__/openai_models.cpython-310.pyc
 response.json
 *.pyc
-playground.py
+playground.pyw
+response.json

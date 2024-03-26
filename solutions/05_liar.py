@@ -1,25 +1,23 @@
-import json
+import logging
+import requests
+
+from lib.get_model import get_model
+from openai import OpenAI
+
 from lib.handle_task import (
     get_token,
     get_task,
     send_answer,
     test_request,
 )
-from lib.get_model import get_model
-from openai import OpenAI
-import logging
-import requests
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 MODEL = get_model("gpt4")
 
-# Get token
-task_name = "liar"
-token = get_token(task_name=task_name)
-
-# Get task details
+# Get task
+token = get_token(task_name="liar")
 get_task(token=token)
 
 # Set question
@@ -66,11 +64,9 @@ try:
 
     logger.info(f"Successfully called the Chat Completions API: {response}.\n")
 
+    # Send answer to ai_devs
+    task_answer = response["choices"][0]["message"]["content"]
+    send_answer(token=token, answer=task_answer)
+
 except Exception as e:
     logger.error(e)
-
-# print(json.dumps(response, indent=4))
-
-# Send answer to ai_devs
-task_answer = response["choices"][0]["message"]["content"]
-send_answer(token=token, answer=task_answer)
