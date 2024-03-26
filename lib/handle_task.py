@@ -40,6 +40,40 @@ def get_task(token):
     return r.json()
 
 
+def prepare_request(method, url, body):
+    # Prepare your request
+    req = requests.Request(method=method, url=url, json=body)
+    prepared = req.prepare()
+
+    # Print out the request's method and url
+    print(
+        "{}\n{}\n{},\n\n{}\n{}".format(
+            "-----------START-----------",
+            prepared.method + " " + prepared.url,
+            "\n".join("{}: {}".format(k, v) for k, v in prepared.headers.items()),
+            prepared.body,
+            "-----------END-----------",
+        )
+    )
+
+
+def test_request(method, payload, is_json):
+    if method == "GET" and is_json:
+        url = "https://httpbin.org/get"
+        response = requests.get(url=url, json=payload)
+    elif method == "GET" and not is_json:
+        url = "https://httpbin.org/get"
+        response = requests.get(url=url, data=payload)
+    elif method == "POST" and is_json:
+        url = "https://httpbin.org/post"
+        response = requests.post(url=url, json=payload)
+    elif method == "POST" and not is_json:
+        url = "https://httpbin.org/post"
+        response = requests.post(url=url, data=payload)
+
+    print(response.text)
+
+
 def send_answer(token, answer):
     "Send an answer to the task."
     answer_url = f"https://tasks.aidevs.pl/answer/{token}"
