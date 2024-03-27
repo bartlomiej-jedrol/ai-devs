@@ -1,7 +1,11 @@
 {
     "models": [
       {
-        "short_name": "gpt4",
+        "short_name": "embedding",
+        "name": "text-embedding-ada-002",
+        "category": "embeddings"
+      },
+      {
         "name": "gpt-4-0125-preview",
         "description": "New GPT-4 Turbo. The latest GPT-4 model intended to reduce cases of “laziness” where the model doesn’t complete a task. Returns a maximum of 4,096 output tokens.",
         "context_window": "128,000 tokens",
@@ -9,6 +13,7 @@
         "category": "GPT-4 and GPT-4 Turbo"
       },
       {
+        "short_name": "gpt4",
         "name": "gpt-4-turbo-preview",
         "description": "Currently points to gpt-4-0125-preview.",
         "context_window": "128,000 tokens",

@@ -2,11 +2,18 @@
 import os
 import requests
 import logging
+from typing import Dict, Any, Optional
+from urllib.parse import urljoin
 
 API_KEY = os.getenv("AI_DEVS_API_KEY")
 
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+
+AIDEVS_PREFIX = "https://tasks.aidevs.pl/"
+URL_TOKEN_PREFIX = urljoin(AIDEVS_PREFIX, "token/")
+URL_TASK_PREFIX = urljoin(AIDEVS_PREFIX, "task/")
+URL_ANSWER_PREFIX = urljoin(AIDEVS_PREFIX, "answer/")
+URL_HINT_PREFIX = urljoin(AIDEVS_PREFIX, "hint/")
 
 
 def get_token(task_name):
@@ -25,19 +32,32 @@ def get_token(task_name):
     return r.json()["token"]
 
 
-def get_task(token):
-    """Get task details."""
-    url = f"https://tasks.aidevs.pl/task/{token}"
-    try:
-        r = requests.get(url=url)
-        task = r.json()
-        logger.info(f"Successfully obtained the task: {task}.\n")
-        print(f"Successfully obtained the task: {task}.\n")
-    except Exception as e:
-        print(e)
-        print("Error at the time of getting input data.\n")
+def get_task_details(token: str) -> Optional[Dict[str, Any]]:
+    """Get task details using the ai_devs authentication token from previously registered authentication."""
+    if not token:
+        logger.error(
+            "The ai_devs authentication token not found. Please ensure it is set."
+        )
+        return None
 
-    return r.json()
+    # Construct URL for fetching task details
+    task_url = urljoin(URL_TASK_PREFIX, token)
+
+    logger.debug("Task URL: %s", task_url)
+
+    try:
+        response = requests.get(url=task_url)
+        response_data = response.json()
+        if response_data["code"] == 0:
+            logger.info("Success response: \n\t%s\n", response_data)
+            return response_data
+        else:
+            logger.error("Error response: ", response_data)
+            return None
+
+    except ValueError as e:
+        logger.error("Error response: ", e)
+        return None
 
 
 def prepare_request(method, url, body):

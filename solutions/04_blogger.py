@@ -6,7 +6,7 @@ from openai import OpenAI
 
 from lib.handle_task import (
     get_token,
-    get_task,
+    get_task_details,
     send_answer,
     test_request,
 )
@@ -18,7 +18,7 @@ logger.setLevel(logging.INFO)
 
 # Get task details
 token = get_token(task_name="blogger")
-task = get_task(token=token)
+task = get_task_details(token=token)
 outlines = task["blog"]
 
 # Prepare messages for OpenAI

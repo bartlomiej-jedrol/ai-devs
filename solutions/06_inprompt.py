@@ -5,7 +5,7 @@ from openai import OpenAI
 
 from lib.handle_task import (
     get_token,
-    get_task,
+    get_task_details,
     send_answer,
 )
 
@@ -35,7 +35,7 @@ def main():
 
     # Get task details
     token = get_token(task_name="inprompt")
-    task = get_task(token=token)
+    task = get_task_details(token=token)
 
     question = task["question"]
 

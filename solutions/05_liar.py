@@ -6,7 +6,7 @@ from openai import OpenAI
 
 from lib.handle_task import (
     get_token,
-    get_task,
+    get_task_details,
     send_answer,
     test_request,
 )
@@ -18,7 +18,7 @@ MODEL = get_model("gpt4")
 
 # Get task
 token = get_token(task_name="liar")
-get_task(token=token)
+get_task_details(token=token)
 
 # Set question
 payload = {"question": "What is capital of Poland?"}

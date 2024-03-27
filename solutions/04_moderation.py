@@ -1,4 +1,4 @@
-from lib.handle_task import get_token, get_task, send_answer
+from lib.handle_task import get_token, get_task_details, send_answer
 from openai import OpenAI
 import logging
 
@@ -10,7 +10,7 @@ task_name = "moderation"
 token = get_token(task_name=task_name)
 
 # Get task details
-task = get_task(token=token)
+task = get_task_details(token=token)
 messages = task["input"]
 
 # Call the OpenAI moderation API to verify if the statement goes through moderation.
