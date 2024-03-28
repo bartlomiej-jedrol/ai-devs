@@ -5,7 +5,7 @@ from lib.get_model import get_model
 from openai import OpenAI
 
 from lib.handle_task import (
-    get_token,
+    get_task_token,
     get_task_details,
     send_answer,
     test_request,
@@ -17,7 +17,7 @@ logger.setLevel(logging.INFO)
 MODEL = get_model("gpt4")
 
 # Get task
-token = get_token(task_name="liar")
+token = get_task_token(task_name="liar")
 get_task_details(token=token)
 
 # Set question

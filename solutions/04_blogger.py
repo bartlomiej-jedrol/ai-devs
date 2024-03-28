@@ -5,7 +5,7 @@ from openai_models import models
 from openai import OpenAI
 
 from lib.handle_task import (
-    get_token,
+    get_task_token,
     get_task_details,
     send_answer,
     test_request,
@@ -17,7 +17,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 # Get task details
-token = get_token(task_name="blogger")
+token = get_task_token(task_name="blogger")
 task = get_task_details(token=token)
 outlines = task["blog"]
 

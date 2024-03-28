@@ -119,7 +119,7 @@ def main():
 
             # Send the transcription as an answer to the ai_devs api
             if transcription is not None:
-                send_answer(token=ai_devs_task_token, answer=transcription)
+                print(send_answer(token=ai_devs_task_token, answer=transcription))
 
 
 main()

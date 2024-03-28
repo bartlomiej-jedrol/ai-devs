@@ -3,10 +3,9 @@ import logging
 from lib.get_model import get_model
 from openai import OpenAI
 
-from lib.handle_task import get_token, send_answer, get_task_details
+from lib.handle_task import get_task_token, send_answer
 
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
 
 
 def create_embedding(client: str, model: str, input: str):
@@ -31,7 +30,7 @@ def create_embedding(client: str, model: str, input: str):
 
 def main():
     """Create embeddings for a given input. Send it as an answer to the ai_devs API."""
-    token = get_token(task_name="embedding")
+    token = get_task_token(task_name="embedding")
     model = get_model("embedding")
     phrase = "Hawaiian pizza"
     client = OpenAI()
