@@ -84,11 +84,7 @@ def create_transcription(file_name, folder_name) -> Optional[str]:
             logger.info("Transcription creation succeeded.")
         return transcription.text
     except ValueError as e:
-        logger.error(
-            "Transcription creation failed. Error message: %s. Response: %s.",
-            e,
-            transcription,
-        )
+        logger.error("Transcription creation failed. Error message: %s.", e)
         return None
 
 
