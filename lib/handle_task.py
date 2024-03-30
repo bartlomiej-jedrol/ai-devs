@@ -32,10 +32,10 @@ def get_task_token(task_name: str) -> Optional[str]:
 
         # Check response for success or failure
         if response_data["code"] == 0:
-            logger.info("Token retrieval succeeded: %s", response_data["token"])
+            logger.info("Token retrieval succeeded: %s", response_data.get("token", ""))
             return response_data["token"]
         else:
-            logger.error("Token retrieval failed: %s", response_data.get("msg"))
+            logger.error("Token retrieval failed: %s", response_data.get("msg", ""))
             return None
     except ValueError as e:
         logger.error("Token retrieval failed: %s", e)

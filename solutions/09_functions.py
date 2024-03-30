@@ -46,11 +46,11 @@ def create_completion(client: str, model: str, messages: list, tools: dict):
         completion = client.chat.completions.create(
             model=model, messages=messages, tools=tools
         )
-        logger.info(f"Successfully created completion: {completion}")
+        logger.info(f"Successfully created completion: {completion}.")
         return completion
     except Exception as e:
-        logger.error(f"Error occurred while creating completion: {e}")
-        raise
+        logger.error(f"Error occurred while creating completion: {e}.")
+        return None
 
 
 def main():
@@ -72,37 +72,38 @@ def main():
         client=client, model=MODEL, messages=messages, tools=tools
     )
 
-    # Extract the user data from the response
-    response_data = completion.model_dump()
-    arguments = (
-        response_data.get("choices", [{}])[0]
-        .get("message", {})
-        .get("tool_calls", [{}])[0]
-        .get("function", {})
-        .get("arguments")
-    )
+    if completion is not None:
+        # Extract the user data from the response
+        response_data = completion.model_dump()
+        arguments = (
+            response_data.get("choices1", [{}])[0]
+            .get("message", {})
+            .get("tool_calls", [{}])[0]
+            .get("function", {})
+            .get("arguments")
+        )
 
-    # Check if arguments are found
-    if arguments is None:
-        logger.error("No arguments found.")
-        return
+        # Check if arguments are found
+        if arguments is None:
+            logger.error("No arguments found.")
+            return
 
-    # Extract the user data from the arguments
-    arguments_dict = json.loads(arguments)
-    user_name = arguments_dict.get("name", "")
-    user_surname = arguments_dict.get("surname", "")
-    user_year = arguments_dict.get("year", "")
+        # Extract the user data from the arguments
+        arguments_dict = json.loads(arguments)
+        user_name = arguments_dict.get("name", "")
+        user_surname = arguments_dict.get("surname", "")
+        user_year = arguments_dict.get("year", "")
 
-    # Print the user data
-    print(f"User {user_name} {user_surname} was born in {user_year}.")
+        # Print the user data
+        print(f"User {user_name} {user_surname} was born in {user_year}.")
 
-    # Send the answer to the ai_devs API
-    ai_devs_task_token = get_task_token(task_name="functions")
-    answer = tools[0].get("function", None)
+        # Send the answer to the ai_devs API
+        ai_devs_task_token = get_task_token(task_name="functions")
+        answer = tools[0].get("function", None)
 
-    # Check if answer is found
-    if answer is not None:
-        send_answer(token=ai_devs_task_token, answer=answer)
+        # Check if answer is found
+        if answer is not None:
+            send_answer(token=ai_devs_task_token, answer=answer)
 
 
 main()
