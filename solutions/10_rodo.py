@@ -1,5 +1,3 @@
-import logging
-
 from lib.handle_task import get_task_token, get_task_details, send_answer
 
 
@@ -16,6 +14,7 @@ def main():
     - '%miasto%'
     """
 
+    # Send the answer to the ai_devs API
     send_answer(token=ai_devs_task_token, answer=message)
 
 
