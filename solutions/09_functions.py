@@ -76,7 +76,7 @@ def main():
         # Extract the user data from the response
         response_data = completion.model_dump()
         arguments = (
-            response_data.get("choices1", [{}])[0]
+            response_data.get("choices", [{}])[0]
             .get("message", {})
             .get("tool_calls", [{}])[0]
             .get("function", {})
