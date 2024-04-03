@@ -1,5 +1,6 @@
 import requests
 import logging
+from typing import Optional
 
 from requests.adapters import HTTPAdapter, Retry
 from openai import OpenAI
@@ -10,7 +11,7 @@ from lib.get_model import get_model
 logger = logging.getLogger()
 
 
-def create_completion(client, messages, model):
+def create_completion(client, messages, model) -> Optional[str]:
     """Call the Chat completion api."""
     try:
         completion = client.chat.completions.create(
