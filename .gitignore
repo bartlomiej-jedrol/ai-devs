@@ -4,3 +4,5 @@ response.json
 playground.pyw
 response.json
 downloads
+app.log
+qdrant_storage
