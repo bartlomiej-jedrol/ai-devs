@@ -1,6 +1,9 @@
 import logging
 import requests
 import os
+import re
+import json
+from typing import Optional, List, Dict, Any
 
 from urllib.parse import urlparse
 
@@ -30,6 +33,34 @@ def get_file_name(file_url) -> str:
     """Get file name for a given url."""
     parsed_url = urlparse(file_url)
     return os.path.basename(parsed_url.path)
+
+
+def extract_urls(text: str):
+    "Extract urls from a given string."
+    url_regex = r"https?://\S+\.json(?=\s|$)"
+
+    urls = re.findall(url_regex, text)
+
+    if len(urls) > 0:
+        return urls[0]
+    return None
+
+
+def retrieve_json_data_from_url(json_url: str) -> Optional[List[Dict[str, Any]]]:
+    """Retrieve JSON data from URL."""
+    try:
+        response = requests.get(url=json_url)
+        response.raise_for_status()
+
+        json_data = response.json()
+        with open("response.json", "w") as f:
+            json.dump(json_data, f)
+
+        logger.info("Successfully retrieved JSON data from URL")
+        return json_data
+    except Exception as e:
+        logger.error(f"Failed to retrieve JSON data from URL: {e}")
+        return None
 
 
 def download_file(file_url, file_name, folder_name) -> bool:
