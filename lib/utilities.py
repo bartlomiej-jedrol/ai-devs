@@ -3,7 +3,7 @@ import requests
 import os
 import re
 import json
-from typing import Optional, List, Dict, Any
+from typing import Optional, Union, List, Dict, Any
 
 from urllib.parse import urlparse
 
@@ -92,3 +92,22 @@ def download_file(file_url, file_name, folder_name) -> bool:
         except ValueError as e:
             logger.error("Downloading the file failed. Error message: %s.", e)
             return False
+
+
+def send_request(url: str) -> Union[Dict, List[Dict]]:
+    """Send a request to the API."""
+    try:
+        response = requests.get(url=url)
+        response.raise_for_status()
+        response_json = response.json()
+        logger.info(f"Successfully retrieved data from the API")
+        return response_json
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Request to the API failed: {e}")
+        return None
+    except json.JSONDecodeError as e:
+        logger.error(f"Failed to decode the API response: {e}")
+        return None
+    except Exception as e:
+        logger.error(f"An unexpected error occurred: {e}")
+        return None
