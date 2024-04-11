@@ -57,6 +57,7 @@ def main():
 
     openai_client = OpenAI()
     model = get_model("gpt4")
+    logger.info(f"model: {model}")
 
     # Classify task received from ai_devs using OpenAI model
     answer = classify_task(openai_client=openai_client, model=model, task=task)
