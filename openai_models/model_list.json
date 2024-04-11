@@ -1,6 +1,11 @@
 {
   "models": [
     {
+      "short_name": "gpt4",
+      "name": "gpt-4-turbo",
+      "category": "GPT-4 and GPT-4 Turbo"
+    },
+    {
       "short_name": "whisper",
       "name": "whisper-1",
       "category": "speech-to-text"
@@ -18,7 +23,7 @@
       "category": "GPT-4 and GPT-4 Turbo"
     },
     {
-      "short_name": "gpt4",
+      "short_name": "gpt4-preview",
       "name": "gpt-4-turbo-preview",
       "description": "Currently points to gpt-4-0125-preview.",
       "context_window": "128,000 tokens",
