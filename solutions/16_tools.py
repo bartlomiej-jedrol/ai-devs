@@ -53,16 +53,13 @@ def main():
     """Send answer for ai_devs task."""
     ai_devs_task_token = get_task_token(task_name="tools")
     task = get_task_details(token=ai_devs_task_token)["question"]
-    logger.info(f"ai_devs task: {task}")
 
     openai_client = OpenAI()
     model = get_model("gpt4")
-    logger.info(f"model: {model}")
 
     # Classify task received from ai_devs using OpenAI model
     answer = classify_task(openai_client=openai_client, model=model, task=task)
     answer_json = json.loads(answer)
-    logger.info(f"OpenAI response: {answer}")
 
     # Send answer to ai_devs
     send_answer(token=ai_devs_task_token, answer=answer_json)
