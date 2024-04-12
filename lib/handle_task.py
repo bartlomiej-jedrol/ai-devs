@@ -79,6 +79,7 @@ def send_answer(token, answer):
         # Send the request for task submission
         response = requests.post(url=answer_url, json=payload)
         response_data = response.json()
+        print(response_data)
 
         # Check if the request sending succeeded
         logger.info("Task answer sending succeeded: .\n%s", response_data)

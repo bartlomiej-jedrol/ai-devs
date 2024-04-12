@@ -12,7 +12,7 @@ def create_completion(
     response_format: Dict = None,
 ) -> Optional[str]:
     """Call OpenAI's Chat completion API."""
-    if tools is not None:
+    if tools:
         try:
             completion = client.chat.completions.create(
                 messages=messages, model=model, tools=tools, temperature=0
@@ -25,7 +25,7 @@ def create_completion(
         except ValueError as e:
             logger.error(e)
             return None
-    elif response_format is not None:
+    elif response_format:
         try:
             completion = client.chat.completions.create(
                 messages=messages,
