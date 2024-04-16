@@ -79,7 +79,7 @@ def send_answer(token, answer):
         # Send the request for task submission
         response = requests.post(url=answer_url, json=payload)
         response_data = response.json()
-        print(response_data)
+        print(f"{response_data}\n")
 
         # Check if the request sending succeeded
         logger.info("Task answer sending succeeded: .\n%s", response_data)
@@ -90,7 +90,7 @@ def send_answer(token, answer):
             return response_data
         else:
             logger.error("Task answer submission failed: \n%s", response_data)
-            return None
+            return response_data
     except ValueError as e:
         logger.error("Task answer sending failed: \n%s", e)
 
