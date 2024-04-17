@@ -1,0 +1,15 @@
+from lib.handle_task import get_task_token, get_task_details, send_answer
+
+
+def main():
+    """Send answer for ai_devs task."""
+    ai_devs_task_token = get_task_token(task_name="google")
+    get_task_details(token=ai_devs_task_token)
+
+    send_answer(
+        token=ai_devs_task_token,
+        answer="https://d062-37-47-189-49.ngrok-free.app/question",
+    )
+
+
+main()

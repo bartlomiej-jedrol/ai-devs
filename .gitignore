@@ -5,3 +5,4 @@ downloads
 app.log
 qdrant_storage
 *.json
+api.log
